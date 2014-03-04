@@ -24,13 +24,13 @@
 
 var canvas = document.getElementById( 'world' ),
     world = new World( canvas ),
-    play = false;
+    play = true;
 
 document.getElementById('play').onclick = function() { play = ! play }
 
 var i = 111;
 var gape = 300;
-while( i-- ) world.addCell( new Cell( Math.random()*gape*2-gape, Math.random()*gape*2-gape ) );
+//while( i-- ) world.addCell( new Cell( Math.random()*gape*2-gape, Math.random()*gape*2-gape ) );
 
 world.render();
 
