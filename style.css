@@ -1,0 +1,8 @@
+body {
+  background-color:#000;
+  text-align:center;
+}
+
+#world {
+  border:1px #333 solid;
+}

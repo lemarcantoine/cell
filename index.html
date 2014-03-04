@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>CELL</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<canvas id="world" width="800" height="600"></canvas>
+
+<br><br>
+
+<button id="play">Play</button>
+
+<script src="js/lib.js"></script>
+<script src="js/world.js"></script>
+<script src="js/cell.js"></script>
+
+<script>
+
+var canvas = document.getElementById( 'world' ),
+    world = new World( canvas ),
+    play = false;
+
+document.getElementById('play').onclick = function() { play = ! play }
+
+var i = 111;
+var gape = 300;
+while( i-- ) world.addCell( new Cell( Math.random()*gape*2-gape, Math.random()*gape*2-gape ) );
+
+world.render();
+
+function frame() {
+  if(play) {
+    world.frame();
+  }
+  requestAnimFrame( frame );
+}
+frame();
+
+</script>
+
+</body>
+</html>
