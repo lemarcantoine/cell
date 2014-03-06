@@ -14,9 +14,10 @@
 
 <br><br>
 
-<button id="play">Play</button>
+<button id="play" style="display:none;">Play</button>
 
 <script src="js/lib.js"></script>
+<script src="js/param.js"></script>
 <script src="js/world.js"></script>
 <script src="js/cell.js"></script>
 
@@ -25,6 +26,12 @@
 var canvas = document.getElementById( 'world' ),
     world = new World( canvas ),
     play = true;
+
+var param = {
+	lineWidth : 3,
+	minDistance : 30,
+	deadZone : 100
+}
 
 document.getElementById('play').onclick = function() { play = ! play }
 
