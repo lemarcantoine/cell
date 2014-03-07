@@ -7,11 +7,14 @@ function World( canvas ) {
   this.centerY = this.height / 2;
   
   this.cells = [];
-  
+  this.deadCells = 0;
+
   this.ctx.fillStyle = "#eee";
   this.ctx.strokeStyle = "#09e";
   
   this.mapEvents();
+  this.tickstamp=0;
+  this.cellQueue = [];
 }
 
 World.prototype = {
@@ -23,7 +26,7 @@ World.prototype = {
     
     this.canvas.addEventListener( 'click', function( e ) {
       //console.log(e);
-      world.addCell( new Cell( e.layerX - world.centerX, e.layerY - world.centerY ) );
+      world.addCell( new Cell( e.layerX - world.centerX, e.layerY - world.centerY, 0 ) );
     } );
   },
   
@@ -32,25 +35,33 @@ World.prototype = {
     
     //this.ctx.clearRect( 0, 0, this.width, this.height );
     
-    this.ctx.globalAlpha = 0.1;
+    this.ctx.globalAlpha = 0.8;
     this.ctx.fillStyle = "#000";
     this.ctx.fillRect( 0, 0, this.width, this.height );
-    this.ctx.globalAlpha = 0.1;
+    this.ctx.globalAlpha = 0.3;
     
     while( i-- ) {
-      this.cells[i].render();
+      if(this.cells[i]!==null)
+        this.cells[i].render();
     }
   },
   
   tick : function() {
+    if(param.activateSpawning==true && this.tickstamp%10==0)
+      world.addCell(new Cell(0, 0));
+
     var i = this.cells.length;
     while( i-- ) {
-      this.cells[i].save();
+      if(this.cells[i]!==null)
+        this.cells[i].save();
     }
     i = this.cells.length;
     while( i-- ) {
-      this.cells[i].tick();
+      if(this.cells[i]!==null)
+        this.cells[i].tick();
     }
+    this.pushQueue();
+    this.tickstamp++;
   },
   
   frame : function() {
@@ -65,6 +76,32 @@ World.prototype = {
     this.cells.push( cell );
   },
   
+  addCellqueue : function (cell){
+    if(this.cells.length-this.deadCells < param.maxEntity)
+      this.cellQueue[this.cellQueue.length]=cell;
+  },
+  
+  pushQueue : function(){
+    var i=this.cellQueue.length;
+    while(i--){
+      this.addCell(this.cellQueue[i]);
+    }
+    this.cellQueue=[];
+  },
+
+  deleteCell : function(cell){
+    var i=this.cells.length;
+    
+    while(i--){
+      if(this.cells[i]==cell){
+        var c = this.cells[i];
+        delete this.cells[i];
+        this.cells[i]=null;
+        this.deadCells++;
+        return;
+      }
+    }
+  },
   radar: function( reference, min ) {
     var cells = this.cells,
         i = cells.length,
@@ -73,7 +110,7 @@ World.prototype = {
         d, dTemp;
     
     while( i-- ) {
-      if( cells[i] !== reference ) {
+      if( cells[i] !== reference && cells[i]!==null) {
         dTemp = G.distance( reference.x, reference.y, cells[i].x, cells[i].y );
         
         if( ( r === null || dTemp < d ) && dTemp >= min ) {
