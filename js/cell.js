@@ -43,7 +43,7 @@ Cell.prototype = {
     if(kindness>0){
       ctx.globalAlpha = alphaKindness * kindness/param.generationTime;  
     
-    grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,param.minDistance + param.deadZone);
+    grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
     grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 0.5 )");
     grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone)),"hsla(" + (this.hue-36)%360 + ", 90%, 75%, 1 )");
     grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone))+0.01,"hsla(" + this.hue + ", 90%, 75%, 0.5 )");
@@ -179,7 +179,9 @@ Cell.prototype = {
 	this.x+=moveX;
 	this.y+=moveY;
 
-	this.hue = ( this.hue + ( this.target.oldHue - this.hue)/0.3+360)%360;
+  if(this.life%10==0)
+	   //this.hue = ( this.hue + ( this.target.oldHue - this.hue)/0.3+360)%360;
+      this.hue = this.target.hue;
 
     /*
     var angle = G.angleTo( this.x, this.y, nearestCell.x, nearestCell.y ) -Math.PI/2,
