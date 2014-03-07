@@ -1,12 +1,12 @@
-cell
+#cell
 ====
 
-Little cells live in a little world
+###Little cells live in a little world
 
 
 L'objet Param permet d'interagir avec les cellules : 
 
-var param = 
+###var param = 
 	lineWidth : 		3		Taille de la ligne reliant 2 cellules;
 	minDistance :		30		Distance à partir de laquelle la cellule cherchera à s'éloigner de sa cible;
 	deadZone :			10		Zone dans laquelle la cellule ne cherchera pas de cible (s'ajoute a minDistance);
