@@ -59,9 +59,4 @@ ed
 	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
 	lineWidth:	 		3		Size of the line connecting two cells; 
 	activateSpawning:	false	If true, adds Cells periodically at the center;
-<<<<<<< HEAD
-=======
 
-
-====
->>>>>>> 06b3c0d85adac606e2865a07a11d5ac410c3539a
