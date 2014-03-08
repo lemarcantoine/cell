@@ -10,13 +10,18 @@
 </head>
 <body>
 
+<form style="position:absolute;with:255px;">
+	<button id="play" style="display:none;">Play</button>
+	<!label>Type de cellule : <select id="cellTypeInput">
+		<option value="default">Default</option>
+	</select></label>
+	<br><br>
+	Cliquez pour ajouter une cellule
+</form>
 <canvas id="world" width="800" height="600"></canvas>
 
-<br><br>
-
-<button id="play">Play</button>
-
 <script src="js/lib.js"></script>
+<script src="js/param.js"></script>
 <script src="js/world.js"></script>
 <script src="js/cell.js"></script>
 
@@ -26,7 +31,26 @@ var canvas = document.getElementById( 'world' ),
     world = new World( canvas ),
     play = true;
 
+var param = {
+	activateSpawning: false,
+	deadZone: 10,
+	easing: 0.9,
+	generationTime: 50,
+	lifetime: 8,
+	lineWidth: 3,
+	minDistance: 35,
+	noOffScreen: true,
+	randomMove: 1,
+	maxEntity:80,
+	showText:false,
+	showCircles:true
+
+}
+
 document.getElementById('play').onclick = function() { play = ! play }
+document.getElementById('cellTypeInput').onclick = function() {
+	//TODO
+}
 
 var i = 111;
 var gape = 300;
