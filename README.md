@@ -1,6 +1,7 @@
 #cell
+====
 ##Little cells live in a little world
-##(Version Français)
+###(Version Français)
 
 Cliquez dans le Canvas pour créer une cellule. Elle vie un instant, puis meurt. Si vous en mettez 2, elles se reproduisent lorsqu'elles sont assez grandes. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères rapidement.
 L'objet Javascript 'Param' permet d'interagir avec les cellules. (Une inferface plus user-friendly est en prévision)
@@ -28,10 +29,12 @@ Voici les différentes variables que l'on peut modifier :
 
 Les valeurs par défaut sont un exemple de cellules ayant une grande durée de vie (8 générations !)
 Essayez de réduire le Lifetime à 4 (par exemple), et là commence le vrai défi !
-====
+
+
 #cell
+====
 ##Little cells live in a little world
-##(English version)
+###(English version)
 
 Clic on the Canvas to add a new Cell. It lives a while, then die. If you put 2 Cells, they can reproduce itselfs when big enought. The game goal is to find the good parameters combo to help your cells to live as long as possible.
 The Javascript object 'Param' let you interact with cell. (A more user-friendly design is scheduled)
