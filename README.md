@@ -55,7 +55,6 @@ There are the differents vars you can modify ingame :
 	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
 	lineWidth:	 		3		Size of the line connecting two cells; 
 	activateSpawning:	false	If true, adds Cells periodically at the center;
-ed 
 	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
 	lineWidth:	 		3		Size of the line connecting two cells; 
 	activateSpawning:	false	If true, adds Cells periodically at the center;
