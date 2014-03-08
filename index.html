@@ -46,11 +46,13 @@ var param = {
 	randomMove: 1,
 	maxEntity:80,
 	showText:false,
-	showCircles:true
+	showCircles:true,
+	sound:true
 
 }
 
 function playSound(){
+	if(!param.sound) return;
 	var i = Math.random()*4|0;
 	document.getElementById('boui'+i+'.mp3').volume=0;
 	document.getElementById('boui'+i+'.mp3').currentTime=0;
