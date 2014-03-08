@@ -1,10 +1,11 @@
 #cell
 ====
-
 ###Little cells live in a little world
 
+Cliquez dans le Canvas pour créer une cellule. Elle vie un instant, puis meurt. Si vous en mettez 2, elles se reproduisent lorsqu'elles sont assez grandes. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères rapidement.
+L'objet Javascript 'Param' permet d'interagir avec les cellules. (Une inferface plus user-friendly est en prévision)
 
-L'objet Param permet d'interagir avec les cellules. Voici les différentes variables que l'on peut modifier : 
+Voici les différentes variables que l'on peut modifier : 
 
 ####Influences sur le comportement : 
 
@@ -24,3 +25,6 @@ L'objet Param permet d'interagir avec les cellules. Voici les différentes varia
 	showCircles:		true	Si true, les cellules sont des cercles (r=minDistance), sinon des points.	
 	lineWidth:	 		3		Taille de la ligne reliant 2 cellules;
 	activateSpawning:	false	Si true, ajoute des entitées au centre periodiquement;
+
+Les valeurs par défaut sont un exemple de cellules ayant une grande durée de vie (8 générations !)
+Essayez de réduire le Lifetime à 4 (par exemple), et là commence le vrai défi !
