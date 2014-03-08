@@ -19,7 +19,10 @@
 	Cliquez pour ajouter une cellule
 </form>
 <canvas id="world" width="800" height="600"></canvas>
-
+<audio src="sounds/boui0.mp3" id="boui0.mp3" ></audio>
+<audio src="sounds/boui1.mp3" id="boui1.mp3" ></audio>
+<audio src="sounds/boui2.mp3" id="boui2.mp3" ></audio>
+<audio src="sounds/boui3.mp3" id="boui3.mp3" ></audio>
 <script src="js/lib.js"></script>
 <script src="js/param.js"></script>
 <script src="js/world.js"></script>
@@ -45,6 +48,14 @@ var param = {
 	showText:false,
 	showCircles:true
 
+}
+
+function playSound(){
+	var i = Math.random()*4|0;
+	document.getElementById('boui'+i+'.mp3').volume=0;
+	document.getElementById('boui'+i+'.mp3').currentTime=0;
+    document.getElementById('boui'+i+'.mp3').play();
+    document.getElementById('boui'+i+'.mp3').volume=0.01;
 }
 
 document.getElementById('play').onclick = function() { play = ! play }

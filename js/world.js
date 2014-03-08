@@ -74,6 +74,7 @@ World.prototype = {
   addCell : function( cell ) {
     cell.setWorld( this );
     this.cells.push( cell );
+    playSound();
   },
   
   addCellqueue : function (cell){
