@@ -43,9 +43,9 @@ Cell.prototype = {
       ctx.globalAlpha = alphaKindness * kindness/param.generationTime;  
     
     var grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
-    grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 0.5 )");
-    grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone)),"hsla(" + (this.hue-36)%360 + ", 90%, 75%, 1 )");
-    grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone))+0.01,"hsla(" + this.hue + ", 90%, 75%, 0.5 )");
+    grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 1 )");
+    //grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone)),"hsla(" + (this.hue-36)%360 + ", 90%, 75%, 1 )");
+    //grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone))+0.01,"hsla(" + this.hue + ", 90%, 75%, 0.5 )");
     grd.addColorStop(1,"rgba(0,0,0,0)");
     ctx.fillStyle=grd;
     ctx.beginPath();
@@ -65,33 +65,39 @@ Cell.prototype = {
     
     var grd = ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY, 0, this.x + this.world.centerX, this.y + this.world.centerY, size);
     
-    grd.addColorStop(0,"hsla(" + this.hue + ", 100%, 50%, 1 )");
-    grd.addColorStop(0.3,"hsla(" + (this.hue) + ", 90%, "+light+"%, 0.5 )");
-    grd.addColorStop(0.7,"hsla(" + (this.hue) + ", 90%, 0%, 0 )");
-    grd.addColorStop(0.9,"hsla(" + (this.hue) + ", 90%, "+light+"%, 0 )");
-
-    grd.addColorStop(1,"hsla("+this.hue+",80%,"+light+"%, 1)");
+    grd.addColorStop(0,"hsla(" + this.hue + ",     100%,    "+(light+50*2)/3+"%, 1 )");
+    grd.addColorStop(0.3,"hsla(" + (this.hue) + ", 100%,     "+light+"%, 0.1 )");
+    grd.addColorStop(0.5,"hsla(" + (this.hue) + ", 100%,  0%, 0 )");
+    if(param.showCircles)
+      grd.addColorStop(1,"hsla(" + (this.hue) + ", 75%,  "+light+"%, 0.3 )");
+    else
+      grd.addColorStop(1,"hsla("+this.hue+",80%,"+light+"%, 0)");
     ctx.fillStyle=grd;
 
 
     ctx.beginPath();
     ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, size, 0, 2 * Math.PI );
     ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle="rgba(150,150,150,0.5)";
+    //ctx.lineWidth = 1;
+    //ctx.strokeStyle="rgba(150,150,150,0.5)";
     
-    ctx.stroke();
+    //ctx.stroke();
 
     //* Texte
+    if(param.showText){
     oldGlobalAlpha=ctx.globalAlpha;
-    ctx.globalAlpha=0.7;
     var texte = this.generation;
-    ctx.font="8px Arial Bold";
+    ctx.font="10px Arial Bold";
     ctx.fillStyle = "#ddd";
-    var offsetTextX = -size+8,
-    	offsetTextY = -size+8;
+    var offsetTextX = -size+10,
+      offsetTextY = -size;
     ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
-	
+    ctx.globalAlpha=ctx.globalAlpha;
+
+    }
+           
+
+
 
   },
   
