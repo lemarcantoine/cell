@@ -1,6 +1,6 @@
 #cell
-====
 ##Little cells live in a little world
+====
 ###(Version Français)
 
 Cliquez dans le Canvas pour créer une cellule. Elle vie un instant, puis meurt. Si vous en mettez 2, elles se reproduisent lorsqu'elles sont assez grandes. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères rapidement.
@@ -30,10 +30,6 @@ Voici les différentes variables que l'on peut modifier :
 Les valeurs par défaut sont un exemple de cellules ayant une grande durée de vie (8 générations !)
 Essayez de réduire le Lifetime à 4 (par exemple), et là commence le vrai défi !
 
-
-#cell
-====
-##Little cells live in a little world
 ###(English version)
 
 Clic on the Canvas to add a new Cell. It lives a while, then die. If you put 2 Cells, they can reproduce itselfs when big enought. The game goal is to find the good parameters combo to help your cells to live as long as possible.
@@ -59,6 +55,13 @@ There are the differents vars you can modify ingame :
 	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
 	lineWidth:	 		3		Size of the line connecting two cells; 
 	activateSpawning:	false	If true, adds Cells periodically at the center;
+ed 
+	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
+	lineWidth:	 		3		Size of the line connecting two cells; 
+	activateSpawning:	false	If true, adds Cells periodically at the center;
+<<<<<<< HEAD
+=======
 
 
 ====
+>>>>>>> 06b3c0d85adac606e2865a07a11d5ac410c3539a
