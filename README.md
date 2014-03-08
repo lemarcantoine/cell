@@ -6,7 +6,7 @@
 
 L'objet Param permet d'interagir avec les cellules. Voici les différentes variables que l'on peut modifier : 
 
-	####Influences sur le comportement : 
+####Influences sur le comportement : 
 
 	minDistance:		30		Distance à partir de laquelle la cellule cherchera à s'éloigner de sa cible;
 	deadZone:			10		Zone dans laquelle la cellule ne cherchera pas de cible (s'ajoute a minDistance);
@@ -18,7 +18,7 @@ L'objet Param permet d'interagir avec les cellules. Voici les différentes varia
 	maxEntity:			80		Nombre d'entité à partir duquel le monde ignorera les requêtes de reproductions;
 
 
-	####Influences exclusivement graphiques
+####	Influences exclusivement graphiques
 
 	showText:			false	Si true, affiche de combien de génération chaque cellule est issue
 	showCircles:		true	Si true, les cellules sont des cercles (r=minDistance), sinon des points.	
