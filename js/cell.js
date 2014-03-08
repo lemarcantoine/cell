@@ -8,8 +8,7 @@ function Cell( x, y, generation ) {
   this.hue = Math.random() * 360;
   this.seed = Math.random();
   this.life = 0;
-  this.canGenerate = false;
-  this.lastgeneration = 0;
+  this.canGenerate = param.generationTime*3/2;
   this.moveX=0;
   this.moveY=0;
   this.dead=false;
@@ -39,11 +38,11 @@ Cell.prototype = {
 	var oldGlobalAlpha = ctx.globalAlpha;
     
     var alphaKindness = 0.5;
-    var kindness = param.generationTime-this.life;
+    var kindness = param.generationTime/3-this.life;
     if(kindness>0){
       ctx.globalAlpha = alphaKindness * kindness/param.generationTime;  
     
-    grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
+    var grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
     grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 0.5 )");
     grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone)),"hsla(" + (this.hue-36)%360 + ", 90%, 75%, 1 )");
     grd.addColorStop((param.minDistance/(param.minDistance + param.deadZone))+0.01,"hsla(" + this.hue + ", 90%, 75%, 0.5 )");
@@ -60,26 +59,37 @@ Cell.prototype = {
     
 
    //*/
+    var size = param.minDistance/2*((param.generationTime*2)-this.canGenerate)/param.generationTime/2,
+    light = (100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0));
     ctx.globalAlpha=0.5;
-    ctx.fillStyle = "hsl(" + this.hue + ", 90%, "+(100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0))+"% )";
+    
+    var grd = ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY, 0, this.x + this.world.centerX, this.y + this.world.centerY, size);
+    
+    grd.addColorStop(0,"hsla(" + this.hue + ", 100%, 50%, 1 )");
+    grd.addColorStop(0.3,"hsla(" + (this.hue) + ", 90%, "+light+"%, 0.5 )");
+    grd.addColorStop(0.7,"hsla(" + (this.hue) + ", 90%, 0%, 0 )");
+    grd.addColorStop(0.9,"hsla(" + (this.hue) + ", 90%, "+light+"%, 0 )");
+
+    grd.addColorStop(1,"hsla("+this.hue+",80%,"+light+"%, 1)");
+    ctx.fillStyle=grd;
+
 
     ctx.beginPath();
-    ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, 10, 0, 2 * Math.PI );
+    ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, size, 0, 2 * Math.PI );
     ctx.fill();
     ctx.lineWidth = 1;
-    ctx.strokeStyle="#000";
-    if(this.canGenerate)
-    	ctx.strokeStyle="#fff";
+    ctx.strokeStyle="rgba(150,150,150,0.5)";
+    
     ctx.stroke();
 
     //* Texte
     oldGlobalAlpha=ctx.globalAlpha;
-    ctx.globalAlpha=1;
+    ctx.globalAlpha=0.7;
     var texte = this.generation;
-    ctx.font="16px Arial bold";
-    ctx.fillStyle = "#000";
-    var offsetTextX = -8,
-    	offsetTextY = 5;
+    ctx.font="8px Arial Bold";
+    ctx.fillStyle = "#ddd";
+    var offsetTextX = -size+8,
+    	offsetTextY = -size+8;
     ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
 	
 
@@ -103,21 +113,17 @@ Cell.prototype = {
   		this.dead=true;
   		return;
   	}
-  	if( ( (this.life - param.generationTime /2 - (1-this.seed)*param.generationTime) |0) % param.generationTime==0
-  		&& this.life-this.lastgeneration > param.generationTime 
-  		&& this.life <= param.lifetime*param.generationTime )
-  		this.canGenerate=true;
+  	if( this.life <= param.lifetime*param.generationTime && this.canGenerate!=0 )
+  		this.canGenerate--;
 
 	if( 	this.target!=this
 		&&  this.target.target==this 
 		&& !this.target.dead 
-		&&  this.canGenerate 
-		&&  this.target.canGenerate ){
-		this.canGenerate=false;
-		this.lastgeneration=false
-		this.target.canGenerate=false;
-		this.target.lastgeneration=false;
-		world.addCellqueue(new Cell((this.x + this.target.x)/2 , (this.y + this.target.y)/2, ((this.generation+this.target.generation)/2|0)+1 ));
+		&&  this.canGenerate==0 
+		&&  this.target.canGenerate==0 ){
+		this.canGenerate=param.generationTime;
+		this.target.canGenerate=param.generationTime;
+		world.addCellqueue(new Cell(this.x , this.y, ((this.generation+this.target.generation)/2|0)+1 ));
 	}
   	var direction = 0, distance=0;
   	var moveX = 0;
