@@ -12,9 +12,10 @@
 
 <form style="position:absolute;with:255px;">
 	<button id="play" style="display:none;">Play</button>
-	<!label>Type de cellule : <select id="cellTypeInput">
+	<!--label>Type de cellule : <select id="cellTypeInput">
 		<option value="default">Default</option>
-	</select></label>
+	</select></label-->
+	<audio src="sounds/Cell_dark.mp3" id="Cell_dark.mp3" controls loop volume="0.5" ></audio>
 	<br><br>
 	Cliquez pour ajouter une cellule
 </form>
@@ -23,8 +24,8 @@
 <audio src="sounds/boui1.mp3" id="boui1.mp3" ></audio>
 <audio src="sounds/boui2.mp3" id="boui2.mp3" ></audio>
 <audio src="sounds/boui3.mp3" id="boui3.mp3" ></audio>
+
 <script src="js/lib.js"></script>
-<script src="js/param.js"></script>
 <script src="js/world.js"></script>
 <script src="js/cell.js"></script>
 
@@ -38,8 +39,8 @@ var param = {
 	activateSpawning: false,
 	deadZone: 10,
 	easing: 0.9,
-	generationTime: 50,
-	lifetime: 8,
+	generationTime: 500,
+	lifetime: 6,
 	lineWidth: 3,
 	minDistance: 35,
 	noOffScreen: true,
@@ -48,7 +49,6 @@ var param = {
 	showText:false,
 	showCircles:true,
 	sound:true
-
 }
 
 function playSound(){
@@ -61,9 +61,7 @@ function playSound(){
 }
 
 document.getElementById('play').onclick = function() { play = ! play }
-document.getElementById('cellTypeInput').onclick = function() {
-	//TODO
-}
+document.getElementById("Cell_dark.mp3").volume=0.5;
 
 var i = 111;
 var gape = 300;
