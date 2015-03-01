@@ -54,6 +54,7 @@ for ( i in param )
 	guiui[i]=param[i];
 }
   var gui = new dat.GUI();
+  gui.closed=true;
   gui.add(guiui, 'template' , 
   	[
   		'Default',
@@ -118,8 +119,10 @@ for ( i in param )
   Display.add(guiui, 'showCircles' )                         .listen();
   Display.add(guiui, 'showText')                             .listen();
 
+//  gui.remember(guiui);
 
   
+
 
 function playSound(){
 	if(!param.sound) return;

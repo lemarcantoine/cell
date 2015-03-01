@@ -85,14 +85,12 @@ Cell.prototype = {
 
     //* Texte
     if(param.showText){
-    oldGlobalAlpha=ctx.globalAlpha;
     var texte = this.generation;
     ctx.font="10px Arial Bold";
     ctx.fillStyle = "#ddd";
     var offsetTextX = -size+10,
       offsetTextY = -size;
     ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
-    ctx.globalAlpha=ctx.globalAlpha;
 
     }
            

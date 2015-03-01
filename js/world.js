@@ -32,7 +32,9 @@ World.prototype = {
   
   render : function() {
     var i = this.cells.length;
-    
+    if(i==0){
+      this.drawInstructions()
+    }
     //this.ctx.clearRect( 0, 0, this.width, this.height );
     
     this.ctx.globalAlpha = 0.8;
@@ -126,6 +128,21 @@ World.prototype = {
     }
     
     return r;
+  },
+
+  drawInstructions:function(){
+    
+    
+    var texte = 'Click to add a cell';
+    this.ctx.font="45px Calibri";
+    this.ctx.textAlign = 'center';
+
+    this.ctx.fillStyle = "#edd";
+    /*var offsetTextX = -size+10,
+      offsetTextY = -size;*/
+    this.ctx.fillText(texte , this.centerX ,  this.centerY ); //*/
+
+    
   }
   
 }
