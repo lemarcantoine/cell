@@ -7,8 +7,16 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color:#777;
+  
+  margin:0;padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 #world {
-  border:1px #333 solid;
+  border:0px #333 solid;
+  margin:0;padding:0;
+  background: black;
 }
