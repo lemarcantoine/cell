@@ -62,7 +62,7 @@ Cell.prototype = {
     var size = param.minDistance/2*((param.generationTime*2)-this.canGenerate)/param.generationTime/2,
     light = (100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0));
     ctx.globalAlpha=0.5;
-    
+    if(size<0) size=0;
     var grd = ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY, 0, this.x + this.world.centerX, this.y + this.world.centerY, size);
     
     grd.addColorStop(0,"hsla(" + this.hue + ",     100%,    "+(light+50*2)/3+"%, 1 )");

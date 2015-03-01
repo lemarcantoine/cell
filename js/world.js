@@ -32,7 +32,7 @@ World.prototype = {
   
   render : function() {
     var i = this.cells.length;
-    if(i==0){
+    if(i==this.deadCells){
       this.drawInstructions()
     }
     //this.ctx.clearRect( 0, 0, this.width, this.height );
