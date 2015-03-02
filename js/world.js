@@ -46,6 +46,34 @@ World.prototype = {
       if(this.cells[i]!==null)
         this.cells[i].render();
     }
+    if(param.noOffScreen)
+    {
+      //Vignette
+      var grd=this.ctx.createLinearGradient(0,0,param.minDistance*2,0);
+      grd.addColorStop(0,"rgba(0,0,0,255)");
+      grd.addColorStop(0.5,"rgba(0,0,0,255)");
+      grd.addColorStop(1,"rgba(0,0,0,0)");
+      this.ctx.fillStyle=grd;
+      this.ctx.fillRect(0,0,param.minDistance*2,this.height);
+      var grd=this.ctx.createLinearGradient(0,0,0,param.minDistance*2);
+      grd.addColorStop(0,"rgba(0,0,0,255)");
+      grd.addColorStop(0.5,"rgba(0,0,0,255)");
+      grd.addColorStop(1,"rgba(0,0,0,0)");
+      this.ctx.fillStyle=grd;
+      this.ctx.fillRect(0,0,this.width,param.minDistance*2);
+      var grd=this.ctx.createLinearGradient(this.width-param.minDistance*2,0,this.width,0);
+      grd.addColorStop(0,"rgba(0,0,0,0)");
+      grd.addColorStop(0.5,"rgba(0,0,0,255)");
+      grd.addColorStop(1,"rgba(0,0,0,255)");
+      this.ctx.fillStyle=grd;
+      this.ctx.fillRect(this.width-param.minDistance*2,0,param.minDistance*2,this.height);
+      var grd=this.ctx.createLinearGradient(0,this.height-param.minDistance*2,0,this.height/*param.minDistance*2*/);
+      grd.addColorStop(0,"rgba(0,0,0,0)");
+      grd.addColorStop(0.5,"rgba(0,0,0,255)");
+      grd.addColorStop(1,"rgba(0,0,0,255)");
+      this.ctx.fillStyle=grd;
+      this.ctx.fillRect(0,this.height-param.minDistance*2,this.width,param.minDistance*2);
+    }
   },
   
   tick : function() {

@@ -2,15 +2,18 @@
 <html>
 <head>
 
-<meta charset="UTF-8">
-<title>CELL</title>
+  <meta charset="UTF-8">
+  <title>CELL</title>
 
+<link rel="icon" href="favicon.ico" />
+<link rel="icon" type="image/png" href="favicon.png" />
 <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
 
 <canvas id="world" width="800" height="600"></canvas>
+
 <audio src="sounds/boui0.mp3" id="boui0.mp3" ></audio>
 <audio src="sounds/boui1.mp3" id="boui1.mp3" ></audio>
 <audio src="sounds/boui2.mp3" id="boui2.mp3" ></audio>
@@ -29,98 +32,24 @@ canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
 world = new World( canvas );
 
-
-
-
 var param = {
-	activateSpawning: false,
-	deadZone: 10,
-	easing: 0.9,
-	generationTime: 500,
-	lifetime: 6,
-	lineWidth: 3,
-	minDistance: 35,
-	noOffScreen: true,
-	randomMove: 1,
-	maxEntity:80,
-	showText:false,
-	showCircles:true,
-	sound:true
-}
+      activateSpawning: false,
+      deadZone: 10,
+      easing: 0.9,
+      generationTime: 500,
+      lifetime: 6,
+      lineWidth: 3,
+      minDistance: 35,
+      noOffScreen: true,
+      randomMove: 1,
+      maxEntity:80,
+      showText:false,
+      showCircles:true,
+      sound:true
+    }
 
-var guiui = new parameters();
-for ( i in param )
-{
-	guiui[i]=param[i];
-}
-  var gui = new dat.GUI();
-  gui.closed=true;
-  gui.add(guiui, 'template' , 
-  	[
-  		'Default',
-  		'Network',
-  		'Neural'
-  	]).onChange(function  ( preset ) { console.log (this);
-    this.object.activateSpawning = false ;
-    this.object.deadZone         = 10    ;
-    this.object.easing           = 0.9   ;
-    this.object.generationTime   = 500   ;
-    this.object.lifetime         = 6     ;
-    this.object.lineWidth        = 3     ;
-    this.object.minDistance      = 35    ;
-    this.object.noOffScreen      = true  ;
-    this.object.randomMove       = 1     ;
-    this.object.maxEntity        = 80    ;
-    this.object.showText         = false ;
-    this.object.showCircles      = true  ;
-      if( preset=='Network' )
-      {
-        this.object.activateSpawning=true;
-        setTimeout(function(iths)
-          {
-            return function(){
-              iths.activateSpawning=false;
-            }
-          }(this.object),
-          15000
-        )
-        this.object.deadZone=100;
-        this.object.easing=0.95;
-        this.object.lineWidth=10;
-        this.object.maxEntity=160;
-        this.object.minDistance=50;
-        this.object.showCircles=false;
-        this.object.sound=false;
-      }else if(preset=='Neural'){
-		this.object.deadZone= 204.03239703601585
-      	this.object.easing= 0.96
-      	this.object.lineWidth= 10
-      	this.object.minDistance= 165.4316732724453
-      	this.object.showCircles= false
-      }
-    });
-  gui.add(guiui, 'fullscreen');
-  gui.add(guiui, 'sound')                                .listen();
-  var Growth = gui.addFolder('Growth');
-  Growth.add(guiui, 'maxEntity'     , 1, 500)               .listen();
-  Growth.add(guiui, 'activateSpawning')                     .listen();
-  Growth.add(guiui, 'lifetime'      , 1, 15)                .listen();
-  Growth.add(guiui, 'generationTime', 1, 5000)              .listen();
 
-  var Behavior = gui.addFolder('Behavior');
-  Behavior.add(guiui, 'minDistance'   , 0, 500)               .listen();
-  Behavior.add(guiui, 'deadZone'      , 0, 500)               .listen();
-  Behavior.add(guiui, 'easing'        , 0.0, 0.99).step(0.01) .listen();
-  Behavior.add(guiui, 'randomMove'    , 0, 10).step(0.1)      .listen();
-  Behavior.add(guiui, 'noOffScreen')                          .listen();
-
-  var Display = gui.addFolder('Display');
-  Display.add(guiui, 'lineWidth'     , 0.001, 10.001).step(1).listen();
-  Display.add(guiui, 'showCircles' )                         .listen();
-  Display.add(guiui, 'showText')                             .listen();
-
-//  gui.remember(guiui);
-
+load_parameters();
   
 
 
@@ -133,8 +62,6 @@ function playSound(){
     document.getElementById('boui'+i+'.mp3').volume=0.01;
 }
 
-//document.getElementById('play').onclick = function() { play = ! play }
-//document.getElementById("Cell_dark.mp3").volume=0.5;
 
 var i = 111;
 var gape = 300;
