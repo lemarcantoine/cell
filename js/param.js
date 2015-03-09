@@ -87,9 +87,10 @@ function load_parameters(){
   Behavior.add(guiui, 'noOffScreen')                          .listen();
 
   var Display = gui.addFolder('Display');
-  Display.add(guiui, 'lineWidth'     , 0.001, 10.001).step(1).listen();
+  Display.add(guiui, 'lineWidth'     , 0, 10).step(1)        .listen();
   Display.add(guiui, 'showCircles' )                         .listen();
-  Display.add(guiui, 'showText')                             .listen();
+  Display.add(guiui, 'showGeneration')                       .listen();
+  Display.add(guiui, 'lowQuality')                           .listen();
 
 //  gui.remember(guiui);
 }
