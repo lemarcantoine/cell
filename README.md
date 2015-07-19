@@ -1,6 +1,8 @@
 # cell
 ## Little cells live in a little world
 
+http://prototype.neospiro.fr/cell/
+
 Cliquez pour créer une cellule. Elle vie un instant, bougeant aléatoirement, puis meurt. Une cellule est ajoutée a chaque clic. Deux cellules se reproduisent lorsqu'elles sont assez grandes et qu'elles se ciblent réciproquement. En haut a droite se situe un panneau de paramêtrage. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères.
 
 Voici les différentes variables que l'on peut modifier : 
