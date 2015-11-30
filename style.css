@@ -1,3 +1,30 @@
+@media screen and (max-width:40em) {
+  .dg {
+    font-size: 16px !important;
+  }
+  .dg.main.a{
+    width: 100% !important;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  .dg input {
+    font-size: 16px !important
+  }
+  .close-button {
+    width: 100% !important;
+  }
+}
+
+
+#github_forkme{
+  display: none;
+}
+@media screen and (min-width: 800px){
+  #github_forkme{
+    display: block;
+  }
+}
 body {
   background-color:#000;
   text-align:center;
@@ -7,8 +34,16 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color:#777;
+
+  margin:0;padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 #world {
-  border:1px #333 solid;
+  border:0px #333 solid;
+  margin:0;padding:0;
+  background: black;
 }
