@@ -89,8 +89,9 @@ function load_parameters(){
   Behavior.add(guiui, 'randomMove'    , 0, 10).step(0.1)      .listen();
 
   var Display = gui.addFolder('Display');
-  Display.add(guiui, 'lineWidth'     , 0.001, 10.001).step(1).listen();
+  Display.add(guiui, 'lineWidth'     , 0, 10).step(1)        .listen();
   Display.add(guiui, 'showCircles' )                         .listen();
+  Display.add(guiui, 'lowQuality')                           .listen();
   Display.add(guiui, 'showText')                             .listen();
   Display.add(guiui, 'showVignette')                         .listen();
 

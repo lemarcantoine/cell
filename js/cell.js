@@ -12,7 +12,7 @@ function Cell( x, y, generation ) {
   this.moveX=0;
   this.moveY=0;
   this.dead=false;
-  this.generation = generation;
+  this.generation = (typeof(generation)=='undefined')?0:generation;
 }
 
 Cell.prototype = {
@@ -23,58 +23,75 @@ Cell.prototype = {
 
   render : function() {
     var ctx = this.world.ctx;
-
-    //Dessine une ligne vers la cellule qu'elle cible
+    ctx.globalAlpha=0.9;
     ctx.fillStyle = "hsl(" + this.hue + ", 90%, 50% )";
   	if(this.target!=this && !this.target.dead ){
       	ctx.beginPath();
   	    ctx.moveTo(this.x + this.world.centerX, this.y + this.world.centerY);
   	    ctx.lineTo(this.target.x + this.world.centerX, this.target.y + this.world.centerY);
   		ctx.strokeStyle="hsla(" + this.hue + ", 90%, 50%, 0.2 )";
-  	    ctx.lineWidth = param.lineWidth;
+  	    ctx.lineWidth = param.lineWidth+0.01;
   		ctx.stroke();
   	}
-    //Dessin de la petite aura qui apparait lorsqu'une cellule nait
-	  var oldGlobalAlpha = ctx.globalAlpha;
-    var alphaKindness = 0.5;
-    var kindness = param.generationTime/3-this.life;
-    if(kindness>0){
-      ctx.globalAlpha = alphaKindness * kindness/param.generationTime;  
-      var grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
-      grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 1 )");
-      grd.addColorStop(1,"rgba(0,0,0,0)");
+
+    if(!param.lowQuality){
+      //Dessine une ligne vers la cellule qu'elle cible
+      //Dessin de la petite aura qui apparait lorsqu'une cellule nait
+      var alphaKindness = 0.9;
+      var kindness = param.generationTime/3-this.life;
+      if(kindness>0){
+        ctx.globalAlpha = alphaKindness * kindness/param.generationTime;  
+        var grd=ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY,0,this.x + this.world.centerX, this.y + this.world.centerY,(param.minDistance + param.deadZone)*(1-ctx.globalAlpha));
+        grd.addColorStop(0,"hsla(" + (this.hue+36)%360 + ", 90%, 75%, 1 )");
+        grd.addColorStop(1,"rgba(0,0,0,0)");
+        ctx.fillStyle=grd;
+        ctx.beginPath();
+        ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, param.minDistance + param.deadZone, 0, 2 * Math.PI );
+        ctx.fill();
+      }
+      // Dessin de la cellule
+      var size = param.minDistance/2*((param.generationTime*2)-this.canGenerate)/param.generationTime/2,
+      light = (100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0));
+      ctx.globalAlpha=0.9;
+      if(size<=0) size=0.1;
+      var grd = ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY, 0, this.x + this.world.centerX, this.y + this.world.centerY, size);
+      
+      grd.addColorStop(0,"hsla(" + this.hue + ",     100%,    "+(light+50*2)/3+"%, 1 )");
+      grd.addColorStop(0.3,"hsla(" + (this.hue) + ", 100%,     "+light+"%, 0.1 )");
+      grd.addColorStop(0.5,"hsla(" + (this.hue) + ", 100%,  0%, 0 )");
+      if(param.showCircles)
+        grd.addColorStop(1,"hsla(" + (this.hue) + ", 75%,  "+light+"%, 0.3 )");
+      else
+        grd.addColorStop(1,"hsla("+this.hue+",80%,"+light+"%, 0)");
       ctx.fillStyle=grd;
       ctx.beginPath();
-      ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, param.minDistance + param.deadZone, 0, 2 * Math.PI );
+      ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, size, 0, 2 * Math.PI );
       ctx.fill();
+    } else { //(param.lowQuality)
+      // Dessin de la cellule
+      var size = param.minDistance/2*((param.generationTime*2)-this.canGenerate)/param.generationTime/2,
+      light = (100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0));
+      ctx.globalAlpha=0.5;
+      if(size<=0) size=0.1;      
+      ctx.fillStyle="hsla(" + this.hue + ",     100%,    "+(light+50*2)/3+"%, 0.7 )";
+      ctx.strokeStyle="hsla(" + this.hue + ",     100%,    "+(light)/3+"%, 1 )";
+      ctx.beginPath();
+      ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, size, 0, 2 * Math.PI );
+      ctx.fill();
+      if(param.showCircles){
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
     }
-    // Dessin de la cellule
-    var size = param.minDistance/2*((param.generationTime*2)-this.canGenerate)/param.generationTime/2,
-    light = (100-((this.life/(param.lifetime*param.generationTime*(1.5))*50)|0));
-    ctx.globalAlpha=0.75;
-    if(size<0) size=0;
-    var grd = ctx.createRadialGradient(this.x + this.world.centerX, this.y + this.world.centerY, 0, this.x + this.world.centerX, this.y + this.world.centerY, size);
-    
-    grd.addColorStop(0,"hsla(" + this.hue + ",     100%,    "+(light+50*2)/3+"%, 1 )");
-    grd.addColorStop(0.3,"hsla(" + (this.hue) + ", 100%,     "+light+"%, 0.1 )");
-    grd.addColorStop(0.5,"hsla(" + (this.hue) + ", 100%,  0%, 0 )");
-    if(param.showCircles)
-      grd.addColorStop(1,"hsla(" + (this.hue) + ", 75%,  "+light+"%, 0.3 )");
-    else
-      grd.addColorStop(1,"hsla("+this.hue+",80%,"+light+"%, 0)");
-    ctx.fillStyle=grd;
-    ctx.beginPath();
-    ctx.arc( this.x + this.world.centerX, this.y + this.world.centerY, size, 0, 2 * Math.PI );
-    ctx.fill();
+
     //* Texte
     if(param.showText){
-    var texte = this.generation;
-    ctx.font="10px Arial Bold";
-    ctx.fillStyle = "#ddd";
-    var offsetTextX = -size+10,
-      offsetTextY = -size;
-    ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
-
+      var texte = this.generation;
+      ctx.font="10px Arial Bold";
+      ctx.fillStyle = "#ddd";
+      var offsetTextX = -size+10,
+        offsetTextY = -size;
+      ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
     }
   },
   
