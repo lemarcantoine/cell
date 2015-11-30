@@ -6,7 +6,7 @@ var parameters = function() {
       }
       else {
        canvas.mozRequestFullScreen();
-      } 
+      }
     }
 };
 
@@ -19,7 +19,7 @@ function load_parameters(){
 	}
   var gui = new dat.GUI();
   gui.closed=true;
-  gui.add(guiui, 'template' , 
+  gui.add(guiui, 'template' ,
   	[
   		'Default',
   		'Network',
@@ -32,12 +32,13 @@ function load_parameters(){
     this.object.generationTime   = 500   ;
     this.object.lifetime         = 6     ;
     this.object.lineWidth        = 3     ;
+    this.object.maxEntity        = 80    ;
     this.object.minDistance      = 35    ;
     this.object.noOffScreen      = true  ;
     this.object.randomMove       = 1     ;
-    this.object.maxEntity        = 80    ;
-    this.object.showText         = false ;
     this.object.showCircles      = true  ;
+    this.object.showText         = false ;
+    this.object.spawningGap      = 0     ;
       if( preset=='Network' )
       {
         this.object.activateSpawning=true;
@@ -58,12 +59,12 @@ function load_parameters(){
         //this.object.sound=false;
       }else if(preset=='Neural'){
 		this.object.deadZone= 204.03239703601585
-      	this.object.easing= 0.96
-      	this.object.lineWidth= 10
-      	this.object.minDistance= 165.4316732724453
-      	this.object.showCircles= false
+        this.object.easing= 0.96
+        this.object.lineWidth= 10
+        this.object.minDistance= 165.4316732724453
+        this.object.showCircles= false
       } else if(preset=='Entropy'){
-        
+
         this.object.deadZone         = 5.51438910908151;
         this.object.easing           = 0.96;
         this.object.lineWidth        = 0.001;
@@ -72,24 +73,26 @@ function load_parameters(){
       }
     });
   gui.add(guiui, 'fullscreen');
-  gui.add(guiui, 'sound')                                   .listen();
+  gui.add(guiui, 'sound')                                    .listen();
   var Growth = gui.addFolder('Growth');
-  Growth.add(guiui, 'maxEntity'     , 1, 500)               .listen();
-  Growth.add(guiui, 'activateSpawning')                     .listen();
-  Growth.add(guiui, 'lifetime'      , 1, 15)                .listen();
-  Growth.add(guiui, 'generationTime', 1, 5000)              .listen();
+  Growth.add(guiui, 'activateSpawning' )                     .listen();
+  Growth.add(guiui, 'spawningGap'   , 0, 2048 )              .listen();
+  Growth.add(guiui, 'generationTime', 1, 5000 )              .listen();
+  Growth.add(guiui, 'lifetime'      , 1, 15 )                .listen();
+  Growth.add(guiui, 'maxEntity'     , 1, 500 )               .listen();
 
   var Behavior = gui.addFolder('Behavior');
   Behavior.add(guiui, 'minDistance'   , 0, 500)               .listen();
   Behavior.add(guiui, 'deadZone'      , 0, 500)               .listen();
   Behavior.add(guiui, 'easing'        , 0.0, 0.99).step(0.01) .listen();
-  Behavior.add(guiui, 'randomMove'    , 0, 10).step(0.1)      .listen();
   Behavior.add(guiui, 'noOffScreen')                          .listen();
+  Behavior.add(guiui, 'randomMove'    , 0, 10).step(0.1)      .listen();
 
   var Display = gui.addFolder('Display');
   Display.add(guiui, 'lineWidth'     , 0.001, 10.001).step(1).listen();
   Display.add(guiui, 'showCircles' )                         .listen();
   Display.add(guiui, 'showText')                             .listen();
+  Display.add(guiui, 'showVignette')                         .listen();
 
 //  gui.remember(guiui);
 }
