@@ -1,61 +1,38 @@
-#cell
-##Little cells live in a little world
-====
-###(Version Français)
+# cell
+## Little cells live in a little world
 
-Cliquez dans le Canvas pour créer une cellule. Elle vie un instant, puis meurt. Si vous en mettez 2, elles se reproduisent lorsqu'elles sont assez grandes. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères rapidement.
-L'objet Javascript 'Param' permet d'interagir avec les cellules. (Une inferface plus user-friendly est en prévision)
+http://prototype.neospiro.fr/cell/
+
+Cliquez pour créer une cellule. Elle vie un instant, bougeant aléatoirement, puis meurt. Une cellule est ajoutée a chaque clic. Deux cellules se reproduisent lorsqu'elles sont assez grandes et qu'elles se ciblent réciproquement. En haut a droite se situe un panneau de paramêtrage. Le but du jeu est d'arriver a touver des combinaisons de paramêtres avec lesquelles les cellules prolifères.
 
 Voici les différentes variables que l'on peut modifier : 
 
-####Influences sur le comportement : 
+#### Options générales : 
+	template:	modifie plusieurs variables pour avoir un set préfabriqué
+	fullscreen:	Met le monde ces celulles en plein écran. * F11 pour avoir la page en plein écran.
+	sound:		Active le son.
 
-	minDistance:		30		Distance à partir de laquelle la cellule cherchera à s'éloigner de sa cible;
-	deadZone:			10		Zone dans laquelle la cellule ne cherchera pas de cible (s'ajoute a minDistance);
-	easing:				0.9		Facteur avec lequel le precedant mouvement est ajouté au mouvement courant pour adoucir;
-	generationTime: 	50		Durée en tick d'une génération. A peu près.
-	lifetime: 			8		Facteur appliqué à generation Time pour calculer la durée de vie d'une cellule;
-	noOffScreen: 		true	Si true, les cellules sont bloqués dans l'écran;
-	randomMove: 		1		Facteur appliqué aux mouvements aléatoires, provoqués à chaques ticks;
-	maxEntity:			80		Nombre d'entité à partir duquel le monde ignorera les requêtes de reproductions;
+#### Croissance :
+	maxEntity:			Nombre d'entité maximum (empêche les cellules de se reproduire mais pas l'utilisateur de créer des cellules);
+	activateSpawning: 	Créée automatiquement ces cellules au centre
+	lifetime:			Nombre de generations qu'une cellule vie avant d'être stérile (une celulle peut vivre jusqu'à 3x cette periode);	
+	generationTime:		Durée en tick d'une génération.
+	
+#### Comportement : 	
+	minDistance:	Distance à partir de laquelle la cellule cherchera à s'éloigner de sa cible;
+	deadZone:		Zone dans laquelle la cellule ne cherchera pas de cible (s'ajoute a minDistance);
+	easing:			Emulation du frottement / inertie ;
+	randomMove		Importance des  mouvements aléatoires;
+	noOffScreen: 	Si cette option est activée, les cellules sont bloqués dans l'écran;
 
-
-####	Influences exclusivement graphiques
-
-	showText:			false	Si true, affiche de combien de génération chaque cellule est issue
-	showCircles:		true	Si true, les cellules sont des cercles (r=minDistance), sinon des points.	
-	lineWidth:	 		3		Taille de la ligne reliant 2 cellules;
-	activateSpawning:	false	Si true, ajoute des entitées au centre periodiquement;
+#### Affichage : 
+	lineWidth:		Taille de la ligne reliant 2 cellules;
+	showCircles:	Si désactivée, seul le centre est dessiné
+	showText:		Si activée, affiche le numero de génération de chaque cellule
 
 Les valeurs par défaut sont un exemple de cellules ayant une grande durée de vie (8 générations !)
 Essayez de réduire le Lifetime à 4 (par exemple), et là commence le vrai défi !
 
-###(English version)
+### English version
 
 Clic on the Canvas to add a new Cell. It lives a while, then die. If you put 2 Cells, they can reproduce itselfs when big enought. The game goal is to find the good parameters combo to help your cells to live as long as possible.
-The Javascript object 'Param' let you interact with cell. (A more user-friendly design is scheduled)
-
-There are the differents vars you can modify ingame : 
-
-####Influence on the behaviour : 
-
-	minDistance:		30		Distance from which the cell will seek to move away from its target; 
-	deadZone:			10		Area in which the cell does not seek new target (added to minDistance); 
-	easing:				0.9		Factor with which previous move is added to the current to soften movement; 
-	generationTime: 	50		Duration in tick of one generation; 
-	lifetime: 			8		Factor applied to generation Time to calculate the lifetime of a cell; 
-	noOffScreen: 		true	If true, the cells are blocked in the screen; 
-	randomMove: 		1		Factor applied to random movements caused on each ticks; 
-	maxEntity:			80		Number of entities from which the world will ignore requests reproductions;
-
-
-####Graphical options
-
-	showText:			false	If true, shows how much generation each cell is derived 
-	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
-	lineWidth:	 		3		Size of the line connecting two cells; 
-	activateSpawning:	false	If true, adds Cells periodically at the center;
-	showCircles:		true	If true, the cells are circles (r = minDistance), else they are points. 
-	lineWidth:	 		3		Size of the line connecting two cells; 
-	activateSpawning:	false	If true, adds Cells periodically at the center;
-

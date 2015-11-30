@@ -12,7 +12,7 @@ function Cell( x, y, generation ) {
   this.moveX=0;
   this.moveY=0;
   this.dead=false;
-  this.generation = generation;
+  this.generation = (typeof(generation)=='undefined')?0:generation;
 }
 
 Cell.prototype = {
@@ -84,15 +84,15 @@ Cell.prototype = {
       }
     }
 
-      //* Texte
-      if(param.showGeneration){
-        var texte = this.generation;
-        ctx.font="10px Arial Bold";
-        ctx.fillStyle = "#ddd";
-        var offsetTextX = -size+10,
-          offsetTextY = -size;
-        ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
-      }
+    //* Texte
+    if(param.showText){
+      var texte = this.generation;
+      ctx.font="10px Arial Bold";
+      ctx.fillStyle = "#ddd";
+      var offsetTextX = -size+10,
+        offsetTextY = -size;
+      ctx.fillText(texte ,this.x + this.world.centerX + offsetTextX, this.y + this.world.centerY + offsetTextY); //*/
+    }
   },
   
   radar : function( min ) {

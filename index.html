@@ -3,6 +3,7 @@
 <head>
 
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0">
   <title>CELL</title>
 
 <link rel="icon" href="favicon.ico" />
@@ -11,6 +12,7 @@
 
 </head>
 <body>
+<a id="github_forkme" href="https://github.com/Neospiro/cell"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
 
 <canvas id="world" width="800" height="600"></canvas>
 
@@ -32,8 +34,11 @@ canvas.width  = window.innerWidth;
 canvas.height = window.innerHeight;
 world = new World( canvas );
 
+
+
 var param = {
       activateSpawning: false,
+      spawningGap:0,
       deadZone: 10,
       easing: 0.9,
       generationTime: 500,
@@ -43,15 +48,16 @@ var param = {
       noOffScreen: true,
       randomMove: 1,
       maxEntity:80,
-      showGeneration:false,
+      showText:false,
       showCircles:true,
+      showVignette:true,
       sound:true,
       lowQuality:false
     }
 
 
 load_parameters();
-  
+
 
 
 function playSound(){
